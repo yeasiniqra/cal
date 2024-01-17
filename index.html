@@ -113,6 +113,22 @@
                 font-size: 11px;
             }
 
+            th.p-static {
+                position: -webkit-sticky;
+                position: sticky;
+                left: -1px;
+                background-color: #45A049; /* Add background color as needed */
+                z-index: 2;
+            }
+
+            td.p-static {
+                position: -webkit-sticky;
+                position: sticky;
+                left: -1px;
+                background-color: #45A049; /* Add background color as needed */
+                z-index: 1;
+            }
+
         }
 
         @media (max-width: auto) {
@@ -141,12 +157,11 @@
         <input type="number" id="monthlyContribution" placeholder="Escribe la cantidad" required>
 
         <button onclick="calculateInterest()">Calcular Ahora</button>
-
         <div class="parent_resultTable">
             <table id="resultTable">
                 <thead>
                     <tr>
-                        <th>AÑOS</th>
+                        <th class="p-static">AÑOS</th>
                         <th>Depósito Bancario (0.02%)</th>
                         <th>Bonos Tesoro Alemán (0.1%)</th>
                         <th>IBEX 35 (0.2%)</th>
@@ -177,7 +192,7 @@
     
             for (let year = 1; year <= time; year++) {
                 const newRow = document.createElement('tr');
-                newRow.innerHTML += `<td>${year}</td>`;
+                newRow.innerHTML += `<td class="p-static">${year}</td>`;
     
                 for (let month = 1; month <= 12; month++) {
                     for (let i = 0; i < monthlyInterestRates.length; i++) {
