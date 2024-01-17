@@ -94,21 +94,23 @@
 
          /* media query for responsive */
         @media all and (max-width: 768px) {
+            .parent_resultTable {
+                overflow: auto;
+            }
             #calculator {
                 max-width: 90%;
                 width: 90%;
-                overflow-x: scroll;
             }
             h1 {
                 font-size: 20px;
             }
             #resultTable{
-                width: 1000px;
+                width: 680px;
                 overflow-x: auto;
             }
             th, td {
-                padding: 5px;
-                font-size: 13px;
+                padding: 3px 4px;
+                font-size: 11px;
             }
 
         }
@@ -140,22 +142,24 @@
 
         <button onclick="calculateInterest()">Calcular Ahora</button>
 
-        <table id="resultTable">
-            <thead>
-                <tr>
-                    <th>AÑOS</th>
-                    <th>Depósito Bancario (0.02%)</th>
-                    <th>Bonos Tesoro Alemán (0.1%)</th>
-                    <th>IBEX 35 (0.2%)</th>
-                    <th>Piso Promedio Alquiler España (0.4%)</th>
-                    <th>SP500 (1%)</th>
-                    <th>HERRAMIENTA ISP (4.9%)</th>
-                </tr>
-            </thead>
-            <tbody>
-                <!-- Results will be added here dynamically -->
-            </tbody>
-        </table>
+        <div class="parent_resultTable">
+            <table id="resultTable">
+                <thead>
+                    <tr>
+                        <th>AÑOS</th>
+                        <th>Depósito Bancario (0.02%)</th>
+                        <th>Bonos Tesoro Alemán (0.1%)</th>
+                        <th>IBEX 35 (0.2%)</th>
+                        <th>Piso Promedio Alquiler España (0.4%)</th>
+                        <th>SP500 (1%)</th>
+                        <th>HERRAMIENTA ISP (4.9%)</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <!-- Results will be added here dynamically -->
+                </tbody>
+            </table>
+        </div>
     </div>
     <script>
         function calculateInterest() {
