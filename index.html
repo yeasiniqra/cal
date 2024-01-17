@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculadora de interés compuesto</title>
+    <style>
+        body {
+            font-family: 'Montserrat', sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            background-color: #f7f7f7;
+        }
+
+        #calculator {
+            background-color: #fff;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+            width: auto;
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+        }
+
+        h1 {
+            color: #333;
+        }
+
+        label {
+            display: block;
+            margin-top: 15px;
+            margin-right: auto;
+        }
+
+        input {
+            flex: 1;
+            padding: 10px !important;
+            margin-top: 8px;
+            margin-bottom: 15px;
+            box-sizing: border-box;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            width: 100%;
+            box-sizing: border-box;
+            height: 35px !important;
+            text-align: left !important;
+        }
+
+        button {
+            background-color: #4caf50 !important;
+            color: white !important;
+            padding: 10px 15px !important;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: background-color 0.3s ease;
+
+        }
+
+        button:hover {
+            background-color: #45a049 !important;
+        }
+
+        table {
+            width: 100%;
+            margin-top: 20px;
+            border-collapse: collapse;
+        }
+
+        th, td {
+            padding: 12px;
+            text-align: right;
+            border: 1px solid #ddd;
+        }
+
+        th {
+            background-color: #d5d5d5;
+            color: black;
+        }
+        
+        #calculator{
+            max-width: 95%;
+            width: 100%;
+            margin: 0 auto;
+            box-sizing: border-box;
+        }
+
+         /* media query for responsive */
+        @media all and (max-width: 768px) {
+            #calculator {
+                max-width: 90%;
+                width: 90%;
+                overflow-x: scroll;
+            }
+            h1 {
+                font-size: 20px;
+            }
+            #resultTable{
+                width: 1000px;
+                overflow-x: auto;
+            }
+            th, td {
+                padding: 5px;
+                font-size: 13px;
+            }
+
+        }
+
+        @media (max-width: auto) {
+            #calculator {
+                width: auto;
+                flex-direction: column;
+            }
+
+            label {
+                margin-right: 0;
+                margin-bottom: 5px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div id="calculator">
+        <h1>Calculadora de Interés Compuesto</h1>
+        <label for="initialAmount">Aportación Inicial:</label>
+        <input type="number" id="initialAmount" placeholder="Escribe tu cantidad inicial" required>
+        
+        <label for="time">Tiempo (en años):</label>
+        <input type="number" id="time" placeholder="Escribe tu tiempo en años" required>
+
+        <label for="monthlyContribution">Aportación Mensual:</label>
+        <input type="number" id="monthlyContribution" placeholder="Escribe la cantidad" required>
+
+        <button onclick="calculateInterest()">Calcular Ahora</button>
+
+        <table id="resultTable">
+            <thead>
+                <tr>
+                    <th>AÑOS</th>
+                    <th>Depósito Bancario (0.02%)</th>
+                    <th>Bonos Tesoro Alemán (0.1%)</th>
+                    <th>IBEX 35 (0.2%)</th>
+                    <th>Piso Promedio Alquiler España (0.4%)</th>
+                    <th>SP500 (1%)</th>
+                    <th>HERRAMIENTA ISP (4.9%)</th>
+                </tr>
+            </thead>
+            <tbody>
+                <!-- Results will be added here dynamically -->
+            </tbody>
+        </table>
+    </div>
+    <script>
+        function calculateInterest() {
+            const initialAmount = parseFloat(document.getElementById('initialAmount').value);
+            const time = parseInt(document.getElementById('time').value);
+            const monthlyContribution = parseFloat(document.getElementById('monthlyContribution').value) || 0;
+    
+            const monthlyInterestRates = [0.02, 0.1, 0.2, 0.4, 1, 4.9];
+            const resultTable = document.getElementById('resultTable');
+            const tbody = resultTable.querySelector('tbody');
+    
+            tbody.innerHTML = '';
+    
+            let cumulativeValues = Array(monthlyInterestRates.length).fill(initialAmount);
+    
+            for (let year = 1; year <= time; year++) {
+                const newRow = document.createElement('tr');
+                newRow.innerHTML += `<td>${year}</td>`;
+    
+                for (let month = 1; month <= 12; month++) {
+                    for (let i = 0; i < monthlyInterestRates.length; i++) {
+                        const monthlyRate = monthlyInterestRates[i] / 100;
+                        cumulativeValues[i] += monthlyContribution;
+                        cumulativeValues[i] *= (1 + monthlyRate);
+                    }
+                }
+    
+                for (let i = 0; i < monthlyInterestRates.length; i++) {
+                    newRow.innerHTML += `<td>${cumulativeValues[i].toFixed(2)}</td>`;
+                }
+    
+                tbody.appendChild(newRow);
+            }
+        }
+    </script>
+    
+</body>
+</html>
